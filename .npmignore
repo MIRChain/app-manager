@@ -1,6 +1,5 @@
 test/
 dist/test/
-updater/
 assets/
 docs/
 .circleci/
