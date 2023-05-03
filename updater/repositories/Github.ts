@@ -4,6 +4,7 @@ import RepoBase from '../api/RepoBase'
 // @ts-ignore
 import { download, downloadJson } from '../lib/downloader'
 import semver from 'semver'
+//@ts-ignore
 import GitHub, { ReposListReleasesResponseItem } from '@octokit/rest'
 import path from 'path'
 import { isRelease, hasSupportedExtension, extractPlatform, extractArchitecture, simplifyVersion } from '../util'
@@ -16,7 +17,7 @@ interface IAsset {
 }
 
 class Github extends RepoBase implements IRemoteRepository {
-  
+  //@ts-ignore
   private client: GitHub;
   private _repositoryUrl: string;
   private owner: string;
@@ -30,11 +31,13 @@ class Github extends RepoBase implements IRemoteRepository {
     super()
     // WARNING: For unauthenticated requests, the rate limit allows for up to 60 requests per hour.
     if (process.env.GITHUB_TOKEN && typeof process.env.GITHUB_TOKEN === 'string') {
+      //@ts-ignore
       this.client = new GitHub({
         // @ts-ignore
         auth: process.env.GITHUB_TOKEN
       })
     } else {
+      //@ts-ignore
       this.client = new GitHub()
     }
 
@@ -150,7 +153,7 @@ class Github extends RepoBase implements IRemoteRepository {
       // @ts-ignore
       assets = assets.filter(asset => asset.name.includes(this.prefixFilter))
     }
-
+    //@ts-ignore
     assets = assets.filter(asset => hasSupportedExtension(asset.name))
     if(assets.length <= 0){
       return [{
@@ -158,7 +161,7 @@ class Github extends RepoBase implements IRemoteRepository {
         error: 'release does not contain any app packages (.asar or .zip)'
       }]
     }
-
+    //@ts-ignore
     let releases = assets.map(a => this.assetToRelease(a, {
       releaseName,
       tag_name,
@@ -195,6 +198,7 @@ class Github extends RepoBase implements IRemoteRepository {
         sha512
       }
     } catch (error) {
+      //@ts-ignore
       console.log('metadata download failed', error.message);
       return null;
     }
@@ -249,6 +253,7 @@ class Github extends RepoBase implements IRemoteRepository {
       })
 
       // convert to proper format
+      //@ts-ignore
       let releases = releaseInfo.data.map(this.toRelease.bind(this)).reduce((prev, cur) => {
         return prev.concat(cur)
       })
@@ -269,6 +274,7 @@ class Github extends RepoBase implements IRemoteRepository {
       return sort ? this.sortReleases(releases) : releases
 
     } catch (error) {
+      //@ts-ignore
       console.log('could not retrieve releases list from github', error.message)
       // FIXME handle API errors such as rate-limits
       return []
