@@ -1,5 +1,5 @@
 {
-  "name": "app-manager",
+  "name": "@pavelkrolevets/app-manager",
   "version": "0.55.0",
   "description": "",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
     "static-files": "copyfiles updater/electron/ui/splash.html updater/electron/ui/preload.js dist/",
     "build": "yarn static-files && tsc -p ./tsconfig.json"
   },
-  "author": "@philipplgh",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@octokit/rest": "^16.27.0",
@@ -44,5 +44,9 @@
     "nock": "^10.0.6",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
