@@ -20,7 +20,7 @@
     "static-files": "copyfiles updater/electron/ui/splash.html updater/electron/ui/preload.js dist/",
     "build": "yarn static-files && tsc -p ./tsconfig.json"
   },
-  "author": "",
+  "author": "@philipplgh",
   "license": "ISC",
   "dependencies": {
     "@octokit/rest": "^16.27.0",
